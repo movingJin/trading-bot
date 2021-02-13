@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <h1 th:text="${coin_name} + ' Trade Setting'" />
+    <form action="#" th:action="@{/setting/save}" method="post" id="edit_setting">
+    <div class="form-group">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>캔들</th>
+                <th>기준</th>
+                <th>조건</th>
+                <th>가격</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:with="setting= ${bid_settings}">
+                <td th:text="매수조건"></td>
+                <td>
+                    <select name="bidCandle" form="edit_setting">
+                        <option th:each="candle : ${T(movingjin.tradingbot.setting.domain.BidTradeSetting.Candle).values()}"
+                                th:value="${candle.value}"
+                                th:text="${candle.value}"
+                                th:selected="(${setting.candle} == ${candle})">
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <select name="bidReference" form="edit_setting">
+                        <option th:each="ref : ${T(movingjin.tradingbot.setting.domain.BidTradeSetting.Reference).values()}"
+                                th:value="${ref}"
+                                th:text="${ref}"
+                                th:selected="(${setting.reference} == ${ref})">
+                        </option>
+                    </select>
+                </td>
+                <td> <input type="text" id="bidCondition_ratio" name="bidCondition_ratio" size=6 placeholder="기준 대비 매수조건" th:value="${setting.condition_ratio}"> </td>
+                <td> <input type="text" id="bidPrice" name="bidPrice" size=10 placeholder="매수금액" th:value="${setting.price}"> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>캔들</th>
+                <th>기준</th>
+                <th>조건</th>
+                <th>가격</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:with="setting= ${ask_settings}">
+                <td th:text="매도조건"></td>
+                <td>
+                    <select name="askCandle" form="edit_setting">
+                        <option th:each="candle : ${T(movingjin.tradingbot.setting.domain.AskTradeSetting.Candle).values()}"
+                                th:value="${candle.value}"
+                                th:text="${candle.value}"
+                                th:selected="(${setting.candle} == ${candle})">
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <select name="askReference" form="edit_setting">
+                        <option th:each="ref : ${T(movingjin.tradingbot.setting.domain.AskTradeSetting.Reference).values()}"
+                            th:value="${ref}"
+                            th:text="${ref}"
+                            th:selected="(${setting.reference} == ${ref})">
+                        </option>
+                    </select>
+                </td>
+                <td> <input type="text" id="askCondition_ratio" name="askCondition_ratio" size=6 placeholder="기준 대비 매도조건" th:value="${setting.condition_ratio}"> </td>
+                <td> <input type="text" id="askPrice" name="askPrice" size=10 placeholder="매도금액" th:value="${setting.price}"> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <input type="submit" value="적용">
+        <input type="button" value="이전" onclick="goBack()">
+    </div>
+    </form>
+</div>
+</body>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    var isSaveOk = /*[[${isSaveOk}]]*/ false;
+    console.log(isSaveOk);
+    if(isSaveOk == true)
+    {
+        alert('저장되었습니다.');
+    }
+    /*]]>*/
+
+    function goBack() {
+        window.history.back();
+    }
+
+</script>
+</html>

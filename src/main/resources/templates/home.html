@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container">
+    <div>
+        <h1>Crypto token Trading Bot</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>코인</th>
+                <th>현재가</th>
+                <th>평균매수금액</th>
+                <th>보유수량</th>
+                <th>손익</th>
+                <th>상태 (시작/정지)</th>
+                <th>설정</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="coin: ${coins}">
+                <td th:text="${coin.name}"></td>
+                <td th:text="${coin.marketPrice}"></td>
+                <td th:text="${coin.bidPrice}"></td>
+                <td th:text="${coin.quantity}"></td>
+                <td th:text="${coin.income}"></td>
+                <td>
+                    <form action="/run_or_stop" method="post">
+                        <button th:if="${coin.isRun}" th:text="정지" name="btn" th:value="${coinStat.index}" type="submit"></button>
+                        <button th:unless="${coin.isRun}" th:text="시작" name="btn" th:value="${coinStat.index}" type="submit"></button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/settings/edit?coin_name=${coin.name}" method="get">
+                        <input type="hidden" name="coin_name" th:value="${coin.name}">
+                        <input type="submit" value="설정">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
