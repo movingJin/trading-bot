@@ -37,7 +37,7 @@ public class BidTradeSetting {
         MA20,
         MA60,
         MA120,
-        PROFIT;
+        PROFIT
     }
 
     @Id
@@ -48,7 +48,7 @@ public class BidTradeSetting {
     @Enumerated(EnumType.STRING)
     private Reference reference;
     private Double condition_ratio;
-    private Double price;
+    private Long price;
 
     public String getCoinName() {
         return coinName;
@@ -82,11 +82,11 @@ public class BidTradeSetting {
         this.condition_ratio = condition_ratio;
     }
 
-    public Double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 }

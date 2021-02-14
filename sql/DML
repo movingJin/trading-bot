@@ -1,0 +1,7 @@
+insert into ASK_TRADE_SETTING values(0, 'BTC', 'MINUTE_5', 'MA5', -10.0, 1.0);
+insert into ASK_TRADE_SETTING values(1, 'ETH', 'MINUTE_5', 'MA5', -10.0, 1.0);
+insert into ASK_TRADE_SETTING values(2, 'XRP', 'MINUTE_5', 'MA5', -10.0, 1.0);
+
+insert into BID_TRADE_SETTING values(0, 'BTC', 'MINUTE_5', 'MA5', 20.0, 30000);
+insert into BID_TRADE_SETTING values(1, 'ETH', 'MINUTE_5', 'MA5', 20.0, 20000);
+insert into BID_TRADE_SETTING values(2, 'XRP', 'MINUTE_5', 'MA5', 20.0, 10000);

@@ -5,7 +5,7 @@ public class TradeSettingForm {
     private String bid_candle;
     private String bid_reference;
     private Double bid_condition_ratio;
-    private Double bid_price;
+    private Long bid_price;
 
     public String getCoinName() {
         return coinName;
@@ -35,11 +35,11 @@ public class TradeSettingForm {
         this.bid_condition_ratio = condition_ratio;
     }
 
-    public Double getBidPrice() {
+    public Long getBidPrice() {
         return bid_price;
     }
 
-    public void setBidPrice(Double price) {
+    public void setBidPrice(Long price) {
         this.bid_price = price;
     }
 

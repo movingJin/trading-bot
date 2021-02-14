@@ -1,0 +1,24 @@
+DROP TABLE Ask_Trade_Setting;
+DROP TABLE Bid_Trade_Setting;
+
+CREATE TABLE Ask_Trade_Setting
+(
+   id bigint,
+   coin_name varchar(63),
+   candle varchar(255),
+   reference varchar(255),
+   condition_ratio double,
+   price double,
+   primary key (id)
+);
+
+CREATE TABLE Bid_Trade_Setting
+(
+   id bigint,
+   coin_name varchar(63),
+   candle varchar(255),
+   reference varchar(255),
+   condition_ratio double,
+   price bigint,
+   primary key (id)
+);

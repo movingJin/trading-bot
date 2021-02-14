@@ -35,6 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
-/sql/DDL
-/sql/DML
 /h2_db.mv.db
