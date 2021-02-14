@@ -48,7 +48,7 @@ public class BidTradeSetting {
     @Enumerated(EnumType.STRING)
     private Reference reference;
     private Double condition_ratio;
-    private Long price;
+    private Double price;
 
     public String getCoinName() {
         return coinName;
@@ -82,11 +82,11 @@ public class BidTradeSetting {
         this.condition_ratio = condition_ratio;
     }
 
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

@@ -19,6 +19,6 @@ CREATE TABLE Bid_Trade_Setting
    candle varchar(255),
    reference varchar(255),
    condition_ratio double,
-   price bigint,
+   price double,
    primary key (id)
 );
