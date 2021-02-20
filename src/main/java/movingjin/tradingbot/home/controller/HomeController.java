@@ -12,18 +12,17 @@ import java.util.List;
 @Controller
 public class HomeController {
     private final CoinService coinService;
-    private List<Coin> coins;
 
     @Autowired
     public HomeController (CoinService coinService)
     {
         this.coinService = coinService;
-        coins = coinService.getCoinInfo();
     }
 
     @GetMapping("/")
     public String home(Model model)
     {
+        List<Coin> coins = coinService.getCoinInfo();
         model.addAttribute("coins", coins);
         return "home";
     }
@@ -31,6 +30,7 @@ public class HomeController {
     @RequestMapping(value="/run_or_stop", method= RequestMethod.POST)
     public String auto_run(Model model, @RequestParam("btn") String _idx)
     {
+        List<Coin> coins = coinService.getCoinInfo();
         int idx = Integer.parseInt(_idx);
         boolean isRun = coins.get(idx).getIsRun();
         coins.get(idx).setIsRun(!isRun);

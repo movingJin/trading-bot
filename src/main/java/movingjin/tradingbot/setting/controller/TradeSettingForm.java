@@ -11,6 +11,10 @@ public class TradeSettingForm {
         return coinName;
     }
 
+    public void setCoinName(String coinName) {
+        this.coinName = coinName;
+    }
+
     public String getBidCandle() {
         return bid_candle;
     }

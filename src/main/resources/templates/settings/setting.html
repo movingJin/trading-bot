@@ -4,6 +4,7 @@
 <div class="container">
     <h1 th:text="${coin_name} + ' Trade Setting'" />
     <form action="#" th:action="@{/setting/save}" method="post" id="edit_setting">
+        <input type="hidden" name="coinName" th:value="${coin_name}">
     <div class="form-group">
         <table>
             <thead>
@@ -97,7 +98,7 @@
     /*<![CDATA[*/
     var isSaveOk = /*[[${isSaveOk}]]*/ false;
     console.log(isSaveOk);
-    if(isSaveOk == true)
+    if(isSaveOk === true)
     {
         alert('저장되었습니다.');
     }

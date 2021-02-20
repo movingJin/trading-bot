@@ -12,8 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class TradeSettingController {
     private TradeSettingService tradeSettingService;
-    private BidTradeSetting bid_settings;
-    private AskTradeSetting ask_settings;
 
     @Autowired
     public void TradeSettingController(TradeSettingService tradeSettingService)
@@ -25,8 +23,8 @@ public class TradeSettingController {
     @GetMapping("/settings/edit")
     public String editSetting(Model model, @RequestParam("coin_name") String coinName)
     {
-        this.bid_settings = tradeSettingService.getBidSetting(coinName).get();
-        this.ask_settings = tradeSettingService.getAskSetting(coinName).get();
+        BidTradeSetting bid_settings = tradeSettingService.getBidSetting(coinName).get();
+        AskTradeSetting ask_settings = tradeSettingService.getAskSetting(coinName).get();
         model.addAttribute("coin_name", coinName);
         model.addAttribute("bid_settings", bid_settings);
         model.addAttribute("ask_settings", ask_settings);
@@ -35,8 +33,11 @@ public class TradeSettingController {
     }
 
     @PostMapping(value="/setting/save")
-    public String save(Model model, TradeSettingForm form, RedirectAttributes redirectAttributes)
+    public String save(TradeSettingForm form, RedirectAttributes redirectAttributes)
     {
+        String coin_name = form.getCoinName();
+        BidTradeSetting bid_settings = tradeSettingService.getBidSetting(coin_name).get();
+        AskTradeSetting ask_settings = tradeSettingService.getAskSetting(coin_name).get();
         bid_settings.setCandle(BidTradeSetting.Candle.parse(form.getBidCandle()));
         ask_settings.setCandle(AskTradeSetting.Candle.parse(form.getAskCandle()));
 
