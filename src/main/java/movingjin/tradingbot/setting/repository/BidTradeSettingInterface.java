@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface BidTradeSettingInterface {
     BidTradeSetting save(BidTradeSetting bidTradeSetting);
-    Optional<BidTradeSetting> findByCoinName(String coinName);
+    Optional<BidTradeSetting> findByUserName(String userName);
+    boolean existsByUserName(String userName);
+    Optional<BidTradeSetting> findByUserNameAndCoinName(String userName, String coinName);
     List<BidTradeSetting> findAll();
 }

@@ -16,7 +16,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.json:json:20190722'
+	compile 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
+
+	compile 'commons-codec:commons-codec:1.15'
+	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.5.0'
+	compile group: 'xerces', name: 'xercesImpl', version: '2.6.2-jaxb-1.0.6'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

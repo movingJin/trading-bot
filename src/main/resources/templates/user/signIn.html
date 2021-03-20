@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto token Trading Bot</title>
+</head>
+<body>
+<h1>Please sign in</h1>
+<hr>
+
+<form action="/user/signIn" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <input type="text" name="username" placeholder="Please input connectKey">
+    <input type="password" name="password" placeholder="Please input secretKey">
+    <button type="submit">Sign in</button>
+</form>
+</body>
+</html>

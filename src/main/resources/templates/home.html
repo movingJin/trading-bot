@@ -1,10 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <body>
+<header>
+    <h1>Crypto token Trading Bot</h1>
+    <nav>
+        <ul>
+            <li><span>Account: </span> <span sec:authentication="name"></span> </li>
+            <li><input type="button" value="Sign Out" sec:authorize="isAuthenticated()" th:onclick="|window.location.href='/user/signOut'|"> </li>
+        </ul>
+    </nav>
+</header>
 <div class="container">
     <div>
-        <h1>Crypto token Trading Bot</h1>
         <table>
             <thead>
             <tr>
@@ -25,13 +34,16 @@
                 <td th:text="${coin.quantity}"></td>
                 <td th:text="${coin.income}"></td>
                 <td>
-                    <form action="/run_or_stop" method="post">
-                        <button th:if="${coin.isRun}" th:text="정지" name="btn" th:value="${coinStat.index}" type="submit"></button>
-                        <button th:unless="${coin.isRun}" th:text="시작" name="btn" th:value="${coinStat.index}" type="submit"></button>
+                    <form th:switch="${coin.isRun.getValue()}" action="/run_or_stop" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button th:case="-1" th:text="시작" name="btn" th:value="${coinStat.index}" type="submit" disabled></button>
+                        <button th:case="1" th:text="정지" name="btn" th:value="${coinStat.index}" type="submit"></button>
+                        <button th:case="0" th:text="시작" name="btn" th:value="${coinStat.index}" type="submit"></button>
                     </form>
                 </td>
                 <td>
                     <form action="/settings/edit?coin_name=${coin.name}" method="get">
+                        <input type="hidden" name="user_name" th:value="${#authentication.name}">
                         <input type="hidden" name="coin_name" th:value="${coin.name}">
                         <input type="submit" value="설정">
                     </form>

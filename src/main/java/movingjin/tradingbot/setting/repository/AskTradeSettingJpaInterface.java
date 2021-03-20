@@ -7,5 +7,8 @@ import java.util.Optional;
 
 public interface AskTradeSettingJpaInterface extends JpaRepository<AskTradeSetting, Long>, AskTradeSettingInterface {
     @Override
-    Optional<AskTradeSetting> findByCoinName(String coinName);
+    Optional<AskTradeSetting> findByUserName(String userName);
+
+    @Override
+    Optional<AskTradeSetting> findByUserNameAndCoinName(String userName, String coinName);
 }

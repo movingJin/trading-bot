@@ -1,14 +1,17 @@
 package movingjin.tradingbot.home.domain;
 
-import org.springframework.boot.autoconfigure.web.WebProperties;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Coin {
     private String name;
     private Double marketPrice;
     private Double bidPrice;
     private Double quantity;
     private Double income;
-    private boolean isRun;
+    private AutoRun isRun;
 
     public Coin ()
     {
@@ -21,54 +24,24 @@ public class Coin {
         this.bidPrice = bidPrice;
         this.quantity = quantity;
         this.income = marketPrice * quantity - bidPrice * quantity;
-        this.isRun = false;
+        this.isRun = AutoRun.STOP;
     }
 
-    public String getName() {
-        return name;
-    }
+    public enum AutoRun {
+        STOP(0), RUN(1), UNAVAILABLE(-1);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        private final int value;
+        private AutoRun(int value) {
+            this.value = value;
+        }
 
-    public Double getMarketPrice() {
-        return marketPrice;
+        public int getValue() {
+            return value;
+        }
     }
-
-    public void setMarketPrice(Double marketPrice) {
-        this.marketPrice = marketPrice;
-    }
-
-    public Double getBidPrice() {
-        return bidPrice;
-    }
-
-    public void setBidPrice(Double bidPrice) {
-        this.bidPrice = bidPrice;
-    }
-
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getIncome() {
-        return income;
-    }
-
-    public void setIncome(Double income) {
-        this.income = income;
-    }
-
-    public boolean getIsRun() {
-        return isRun;
-    }
-
-    public void setIsRun(boolean run) {
-        isRun = run;
+    public enum Token {
+        BTC,
+        ETH,
+        XRP
     }
 }

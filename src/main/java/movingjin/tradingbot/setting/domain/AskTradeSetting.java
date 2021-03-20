@@ -1,9 +1,44 @@
 package movingjin.tradingbot.setting.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
-@Entity(name = "ask_trade_setting")
+@Getter
+@Setter
+@Entity
 public class AskTradeSetting {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long idx;
+    private String userName;
+    private String coinName;
+    private String candle;
+    @Enumerated(EnumType.STRING)
+    private Reference reference;
+    private Double conditionRatio;
+    private Double price;
+
+    public Candle getCandle() {
+        return Candle.parse(candle);
+    }
+
+    public void setCandle(Candle candle) {
+        this.candle = candle.getValue();
+    }
+
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
+    }
+
+
+
+
     public enum Candle {
         MINUTE_5("5 Minutes"),
         MINUTE_10("10 Minutes"),
@@ -35,56 +70,5 @@ public class AskTradeSetting {
         MA60,
         MA120,
         PROFIT;
-    }
-
-    @Id
-    private Long id;
-
-    //@Column(name = "coin_name")
-    private String coinName;
-    private String candle;
-    @Enumerated(EnumType.STRING)
-    private Reference reference;
-    private Double condition_ratio;
-    private Double price;
-
-    public String getCoinName() {
-        return coinName;
-    }
-
-    public void setCoinName(String coinName) {
-        this.coinName = coinName;
-    }
-
-    public Candle getCandle() {
-        return Candle.parse(candle);
-    }
-
-    public void setCandle(Candle candle) {
-        this.candle = candle.getValue();
-    }
-
-    public Reference getReference() {
-        return reference;
-    }
-
-    public void setReference(Reference reference) {
-        this.reference = reference;
-    }
-
-    public Double getCondition_ratio() {
-        return condition_ratio;
-    }
-
-    public void setCondition_ratio(Double condition_ratio) {
-        this.condition_ratio = condition_ratio;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 }

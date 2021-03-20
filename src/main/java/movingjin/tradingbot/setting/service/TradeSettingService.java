@@ -25,13 +25,13 @@ public class TradeSettingService {
         return 0;
     }
 
-    public Optional<BidTradeSetting> getBidSetting(String coinName)
+    public Optional<BidTradeSetting> getBidSetting(String userName, String coinName)
     {
-        return bidRepository.findByCoinName(coinName);
+        return bidRepository.findByUserNameAndCoinName(userName, coinName);
     }
 
-    public Optional<AskTradeSetting> getAskSetting(String coinName)
+    public Optional<AskTradeSetting> getAskSetting(String userName, String coinName)
     {
-        return askRepository.findByCoinName(coinName);
+        return askRepository.findByUserNameAndCoinName(userName, coinName);
     }
 }

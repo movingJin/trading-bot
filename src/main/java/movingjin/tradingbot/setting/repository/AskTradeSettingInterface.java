@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface AskTradeSettingInterface {
     AskTradeSetting save(AskTradeSetting bidTradeSetting);
-    Optional<AskTradeSetting> findByCoinName(String coinName);
+    Optional<AskTradeSetting> findByUserName(String userName);
+    Optional<AskTradeSetting> findByUserNameAndCoinName(String userName, String coinName);
     List<AskTradeSetting> findAll();
 }

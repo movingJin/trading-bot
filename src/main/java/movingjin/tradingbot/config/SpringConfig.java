@@ -1,10 +1,10 @@
-package movingjin.tradingbot;
+package movingjin.tradingbot.config;
 
 import movingjin.tradingbot.home.repository.APICoinRepository;
-import movingjin.tradingbot.setting.repository.AskTradeSettingInterface;
 import movingjin.tradingbot.home.repository.CoinInterface;
-import movingjin.tradingbot.setting.repository.BidTradeSettingInterface;
 import movingjin.tradingbot.home.service.CoinService;
+import movingjin.tradingbot.setting.repository.AskTradeSettingInterface;
+import movingjin.tradingbot.setting.repository.BidTradeSettingInterface;
 import movingjin.tradingbot.setting.service.TradeSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +22,7 @@ public class SpringConfig {
         this.bidTradeSettingInterface = bidTradeSettingInterface;
         this.askTradeSettingInterface = askTradeSettingInterface;
     }
+
     @Bean
     public CoinService coinService()
     {

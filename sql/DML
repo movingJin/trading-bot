@@ -1,7 +1,13 @@
-insert into ASK_TRADE_SETTING values(0, 'BTC', 'MINUTE_5', 'MA5', -10.0, 1.0);
-insert into ASK_TRADE_SETTING values(1, 'ETH', 'MINUTE_5', 'MA5', -10.0, 1.0);
-insert into ASK_TRADE_SETTING values(2, 'XRP', 'MINUTE_5', 'MA5', -10.0, 1.0);
+insert into BID_TRADE_SETTING(user_name, coin_name, candle, reference, condition_ratio, price)
+ values('be4e24a8e3a22e8dc67f04f40161c609', 'BTC', 'MINUTE_5', 'MA5', -10.0, 1.0);
+insert into BID_TRADE_SETTING(user_name, coin_name, candle, reference, condition_ratio, price)
+ values('be4e24a8e3a22e8dc67f04f40161c609', 'ETH', 'MINUTE_5', 'MA5', -10.0, 1.0);
+insert into BID_TRADE_SETTING(user_name, coin_name, candle, reference, condition_ratio, price)
+ values('be4e24a8e3a22e8dc67f04f40161c609', 'XRP', 'MINUTE_5', 'MA5', -10.0, 1.0);
 
-insert into BID_TRADE_SETTING values(0, 'BTC', 'MINUTE_5', 'MA5', 20.0, 30000);
-insert into BID_TRADE_SETTING values(1, 'ETH', 'MINUTE_5', 'MA5', 20.0, 20000);
-insert into BID_TRADE_SETTING values(2, 'XRP', 'MINUTE_5', 'MA5', 20.0, 10000);
+insert into ASK_TRADE_SETTING(user_name, coin_name, candle, reference, condition_ratio, price)
+ values('be4e24a8e3a22e8dc67f04f40161c609', 'BTC', 'MINUTE_5', 'MA5', 20.0, 30000);
+insert into ASK_TRADE_SETTING(user_name, coin_name, candle, reference, condition_ratio, price)
+ values('be4e24a8e3a22e8dc67f04f40161c609', 'ETH', 'MINUTE_5', 'MA5', 20.0, 20000);
+insert into ASK_TRADE_SETTING(user_name, coin_name, candle, reference, condition_ratio, price)
+ values('be4e24a8e3a22e8dc67f04f40161c609', 'XRP', 'MINUTE_5', 'MA5', 20.0, 10000);

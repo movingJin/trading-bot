@@ -20,8 +20,19 @@ public class AskTradeSettingRepository implements AskTradeSettingInterface {
     }
 
     @Override
-    public Optional<AskTradeSetting> findByCoinName(String coinName) {
-        List<AskTradeSetting> result = entityManager.createQuery("select t from Ask_Trade_Setting t where t.COIN_NAME = :coinName", AskTradeSetting.class)
+    public Optional<AskTradeSetting> findByUserName(String userName) {
+        List<AskTradeSetting> result = entityManager.createQuery("select t from Ask_Trade_Setting t where t.USER_NAME = :userName", AskTradeSetting.class)
+                .setParameter("userName", userName)
+                .getResultList();
+
+        return result.stream().findAny();
+    }
+
+    @Override
+    public Optional<AskTradeSetting> findByUserNameAndCoinName(String userName, String coinName) {
+        List<AskTradeSetting> result = entityManager
+                .createQuery("select t from Ask_Trade_Setting t where t.USER_NAME = :userName and t.COIN_NAME = :coinName", AskTradeSetting.class)
+                .setParameter("userName", userName)
                 .setParameter("coinName", coinName)
                 .getResultList();
 

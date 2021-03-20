@@ -4,6 +4,7 @@
 <div class="container">
     <h1 th:text="${coin_name} + ' Trade Setting'" />
     <form action="#" th:action="@{/setting/save}" method="post" id="edit_setting">
+        <input type="hidden" name="userName" th:value="${user_name}">
         <input type="hidden" name="coinName" th:value="${coin_name}">
     <div class="form-group">
         <table>
@@ -38,7 +39,7 @@
                         </option>
                     </select>
                 </td>
-                <td> <input type="text" id="bidCondition_ratio" name="bidCondition_ratio" size=6 placeholder="기준 대비 매수조건" th:value="${setting.condition_ratio}"> </td>
+                <td> <input type="text" id="bidConditionRatio" name="bidConditionRatio" size=6 placeholder="기준 대비 매수조건" th:value="${setting.conditionRatio}"> </td>
                 <td> <input type="text" id="bidPrice" name="bidPrice" size=10 placeholder="매수금액" th:value="${setting.price}"> </td>
             </tr>
             </tbody>
@@ -78,7 +79,7 @@
                         </option>
                     </select>
                 </td>
-                <td> <input type="text" id="askCondition_ratio" name="askCondition_ratio" size=6 placeholder="기준 대비 매도조건" th:value="${setting.condition_ratio}"> </td>
+                <td> <input type="text" id="askConditionRatio" name="askConditionRatio" size=6 placeholder="기준 대비 매도조건" th:value="${setting.conditionRatio}"> </td>
                 <td> <input type="text" id="askPrice" name="askPrice" size=10 placeholder="매도금액" th:value="${setting.price}"> </td>
             </tr>
             </tbody>
@@ -97,7 +98,6 @@
 
     /*<![CDATA[*/
     var isSaveOk = /*[[${isSaveOk}]]*/ false;
-    console.log(isSaveOk);
     if(isSaveOk === true)
     {
         alert('저장되었습니다.');
