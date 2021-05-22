@@ -17,6 +17,13 @@ public class Coin {
     {
 
     }
+
+    public Coin (String name)
+    {
+        this.name = name;
+        this.isRun = AutoRun.STOP;
+    }
+
     public Coin(String name, Double marketPrice, Double bidPrice, Double quantity)
     {
         this.name = name;

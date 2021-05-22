@@ -7,16 +7,19 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "ask_trade_setting")
 public class AskTradeSetting {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idx;
+    @Column(name = "user_name")
     private String userName;
+    @Column(name = "coin_name")
     private String coinName;
     private String candle;
     @Enumerated(EnumType.STRING)
     private Reference reference;
+    @Column(name = "condition_ratio")
     private Double conditionRatio;
     private Double price;
 

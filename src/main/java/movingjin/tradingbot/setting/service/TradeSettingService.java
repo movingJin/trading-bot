@@ -2,17 +2,17 @@ package movingjin.tradingbot.setting.service;
 
 import movingjin.tradingbot.setting.domain.AskTradeSetting;
 import movingjin.tradingbot.setting.domain.BidTradeSetting;
-import movingjin.tradingbot.setting.repository.AskTradeSettingInterface;
-import movingjin.tradingbot.setting.repository.BidTradeSettingInterface;
+import movingjin.tradingbot.setting.repository.AskTradeSettingJpaInterface;
+import movingjin.tradingbot.setting.repository.BidTradeSettingJpaInterface;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Transactional
 public class TradeSettingService {
-    private final BidTradeSettingInterface bidRepository;
-    private final AskTradeSettingInterface askRepository;
-    public TradeSettingService(BidTradeSettingInterface bidRepository, AskTradeSettingInterface askRepository)
+    private final BidTradeSettingJpaInterface bidRepository;
+    private final AskTradeSettingJpaInterface askRepository;
+    public TradeSettingService(BidTradeSettingJpaInterface bidRepository, AskTradeSettingJpaInterface askRepository)
     {
         this.bidRepository = bidRepository;
         this.askRepository = askRepository;
