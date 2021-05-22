@@ -6,13 +6,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface BidTradeSettingJpaInterface extends JpaRepository<BidTradeSetting, Long>, BidTradeSettingInterface {
-    @Override
+public interface BidTradeSettingJpaInterface extends JpaRepository<BidTradeSetting, Long> {
     Optional<BidTradeSetting> findByUserName(String userName);
 
-    @Override
     boolean existsByUserName(@Param("user_name") String userName);
 
-    @Override
     Optional<BidTradeSetting> findByUserNameAndCoinName(String userName, String coinName);
 }

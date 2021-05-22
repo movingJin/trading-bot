@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: trading-bot
+  batch:
+    initialize-schema: always
+  datasource:
+    #hikari:
+    platform: h2
+    driver-class-name: org.h2.Driver
+    password: ''
+    url: jdbc:h2:tcp://localhost/~/projects/trading-bot/h2_db
+    jdbc-url: jdbc:h2:tcp://localhost/~/projects/trading-bot/h2_db
+    username: sa
+
+    batch:
+      driver-class-name: org.h2.Driver
+      password: ''
+      url: jdbc:h2:tcp://localhost/~/projects/trading-bot/h2_db
+      jdbc-url: jdbc:h2:tcp://localhost/~/projects/trading-bot/h2_db
+      username: sa
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true

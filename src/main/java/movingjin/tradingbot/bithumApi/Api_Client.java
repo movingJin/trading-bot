@@ -3,6 +3,8 @@ package movingjin.tradingbot.bithumApi;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 
 @SuppressWarnings("unused")
 public class Api_Client {
+	Logger logger = LoggerFactory.getLogger(getClass());
 	protected String api_url = "https://api.bithumb.com";
 	protected String api_key;
 	protected String api_secret;
@@ -40,7 +43,7 @@ public class Api_Client {
 
 		int elapsedTime = (int) (microseconds + seconds);
 
-		System.out.println("elapsedTime ==> " + microseconds + " : " + seconds);
+		logger.debug("elapsedTime ==> " + microseconds + " : " + seconds);
 		*/
 
 		return String.valueOf(System.currentTimeMillis());
@@ -68,16 +71,16 @@ public class Api_Client {
 				request = new HttpRequest(strHost, "POST");
 				request.readTimeout(10000);
 
-				System.out.println("POST ==> " + request.url());
+				logger.debug("POST ==> " + request.url());
 
 				if (httpHeaders != null && !httpHeaders.isEmpty()) {
 					httpHeaders.put("api-client-type", "2");
 					request.headers(httpHeaders);
-					System.out.println(httpHeaders.toString());
+					logger.debug(httpHeaders.toString());
 				}
 				if (rgParams != null && !rgParams.isEmpty()) {
 					request.form(rgParams);
-					System.out.println(rgParams.toString());
+					logger.debug(rgParams.toString());
 				}
 			} else {
 				request = HttpRequest.get(strHost
@@ -87,7 +90,7 @@ public class Api_Client {
 
 			if (request.ok()) {
 				response = request.body();
-				System.out.println("Response was: " + response);
+				logger.debug("Response was: " + response);
 			} else {
 				response = "error : " + request.code() + ", message : "
 						+ request.body();
@@ -132,7 +135,7 @@ public class Api_Client {
 		strData = strData.substring(0, strData.length()-1);
 
 
-		System.out.println("1 : " + strData);
+		logger.debug("1 : " + strData);
 
 		strData = encodeURIComponent(strData);
 
@@ -144,8 +147,7 @@ public class Api_Client {
 
 		String encoded = asHex(hmacSha512(str, apiSecret));
 
-		System.out.println("strData was: " + str);
-		System.out.println("apiSecret was: " + apiSecret);
+		logger.debug("strData was: " + str);
 		array.put("Api-Key", apiKey);
 		array.put("Api-Sign", encoded);
 		array.put("Api-Nonce", String.valueOf(nNonce));
@@ -186,7 +188,7 @@ public class Api_Client {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String callApi(String endpoint, HashMap<String, String> params) {
+	public String callApi(String endpoint, HashMap<String, String> params, String method) {
 		String rgResultDecode = "";
 		HashMap<String, String> rgParams = new HashMap<String, String>();
 		rgParams.put("endpoint", endpoint);
@@ -198,7 +200,7 @@ public class Api_Client {
 		String api_host = api_url + endpoint;
 		HashMap<String, String> httpHeaders = getHttpHeaders(endpoint, rgParams, api_key, api_secret);
 
-		rgResultDecode = request(api_host, "POST", rgParams, httpHeaders);
+		rgResultDecode = request(api_host, method, rgParams, httpHeaders);
 
 		if (!rgResultDecode.startsWith("error")) {
 			// json 파싱
@@ -207,10 +209,9 @@ public class Api_Client {
 				result = new ObjectMapper().readValue(rgResultDecode,
 						HashMap.class);
 
-				System.out.println("==== 결과 출력 ====");
-				System.out.println(result.get("status"));
+				logger.info(result.get("status"));
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 		}
 		return rgResultDecode;

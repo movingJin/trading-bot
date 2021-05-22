@@ -16,7 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-//@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
 
@@ -65,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider);
+        auth.authenticationProvider(authProvider).eraseCredentials(false);
     }
 
 

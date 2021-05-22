@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+import static movingjin.tradingbot.bithumApi.HttpRequest.METHOD_POST;
+
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
@@ -54,7 +56,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (!loadedUser.isCredentialsNonExpired()) {
             throw new CredentialsExpiredException("User credentials have expired");
         } /* 인증 완료 */
-        UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(loadedUser, null, loadedUser.getAuthorities());
+        UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(loadedUser, authentication.getCredentials(), loadedUser.getAuthorities());
         result.setDetails(authentication.getDetails());
         return result;
     }
@@ -74,7 +76,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         rgParams.put("payment_currency", "KRW");
 
         try {
-            String result = api.callApi("/info/account", rgParams);
+            String result = api.callApi("/info/account", rgParams, METHOD_POST);
             System.out.println(result);
             JSONObject jObject = new JSONObject(result);
             String status = jObject.getString("status");
