@@ -77,6 +77,32 @@ public class APICoinRepository implements CoinInterface {
         return balance;
     }
 
+    @Override
+    public Double getCurrentPriceByCoin(String coinName) {
+        Double currentPrice = 0.0;
+        Api_Client api = new Api_Client("dummy", "dummy");
+
+        try {
+            {   //Getting and setting market price
+                String reqUrl = String.format("/public/orderbook/%s_KRW", coinName);
+                HashMap<String, String> rgParams = new HashMap<String, String>();
+                rgParams.put("count", "1");
+                String result = api.callApi(reqUrl, rgParams, METHOD_GET);
+                JSONObject jObject = new JSONObject(result);
+                String status = jObject.getString("status");
+                if (status.equals("0000")) {
+                    JSONObject dataObject = jObject.getJSONObject("data");
+                    JSONArray bidsArray = dataObject.getJSONArray("bids");
+                    String openPrice = bidsArray.getJSONObject(0).getString("price");
+                    currentPrice = Double.parseDouble(openPrice);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return currentPrice;
+    }
+
     private Coin getCoinInfoFromApi(String connectKey, String secretKey, String coinName)
     {
         Coin pickCoin = store.values().stream()

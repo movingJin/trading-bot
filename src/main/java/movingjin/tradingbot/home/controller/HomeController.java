@@ -27,15 +27,15 @@ public class HomeController {
     Logger logger = LoggerFactory.getLogger(getClass());
     private final CoinService coinService;
     private final TradeSettingService tradeSettingService;
-    @Autowired
-    TradingService tradingService;
+    private final TradingService tradingService;
     HashMap<String, Future<Integer> > bidThreads = null;
 
     @Autowired
-    public HomeController (CoinService coinService, TradeSettingService tradeSettingService)
+    public HomeController (CoinService coinService, TradeSettingService tradeSettingService, TradingService tradingService)
     {
         this.coinService = coinService;
         this.tradeSettingService = tradeSettingService;
+        this.tradingService = tradingService;
         this.bidThreads = new HashMap<>();
     }
 
@@ -55,8 +55,8 @@ public class HomeController {
             balance = coinService.getBalance(userName, password);
 
             for (Coin coin : coins) {
-                BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coin.getName()).get();
-                AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coin.getName()).get();
+                BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coin.getName());
+                AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coin.getName());
                 Double bidPrice = bid_settings.getPrice();
                 Double askPrice = ask_settings.getPrice();
 
@@ -84,28 +84,23 @@ public class HomeController {
 
             int idx = Integer.parseInt(_idx);
             String coinName = Coin.Token.values()[idx].name();
-            Coin coin = coinService.getCoinInfo(userName, password, coinName).get();
+            Coin coin = coinService.getCoinInfo(userName, password, coinName);
             Coin.AutoRun isRun = coin.getIsRun();
             isRun = (isRun == Coin.AutoRun.RUN) ? Coin.AutoRun.STOP : Coin.AutoRun.RUN;
 
-            BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coin.getName()).get();
-
-
             if(isRun == Coin.AutoRun.RUN)
             {
-                Future<Integer> bidThread = tradingService.onBidding(coin, bid_settings);
+                Future<Integer> bidThread = tradingService.onTrading(userName, coin);
                 bidThreads.put(coinName, bidThread);
             }
             else
             {
                 Future<Integer> bidThread = bidThreads.get(coinName);
-                bidThread.isDone();
                 if (bidThread.isDone()) {
                     try {
                         bidThread.get();
                     } catch(Exception e) {
-                        //Exception cause = (Exception) e.getCause(); // this will be your new Exception("Connection error")
-                        logger.info(e.toString());
+                        logger.error(e.toString());
                     }
                 }
                 boolean ret = bidThread.cancel(true);

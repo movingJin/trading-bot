@@ -1,7 +1,7 @@
 package movingjin.tradingbot.config;
 
 import lombok.RequiredArgsConstructor;
-import movingjin.tradingbot.batch.tickerHistory.JobExecutorImpl;
+import movingjin.tradingbot.batch.tickerHistory.service.TickerHistoryService;
 import movingjin.tradingbot.batch.tickerHistory.repository.TickerJpaInterface;
 import movingjin.tradingbot.home.repository.APICoinRepository;
 import movingjin.tradingbot.home.repository.CoinInterface;
@@ -9,6 +9,7 @@ import movingjin.tradingbot.home.service.CoinService;
 import movingjin.tradingbot.setting.repository.AskTradeSettingJpaInterface;
 import movingjin.tradingbot.setting.repository.BidTradeSettingJpaInterface;
 import movingjin.tradingbot.setting.service.TradeSettingService;
+import movingjin.tradingbot.trading.TradingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,8 +40,14 @@ public class SpringConfig {
     }
 
     @Bean
-    public JobExecutorImpl jobExecutorImpl()
+    public TickerHistoryService tickerHistoryService()
     {
-        return new JobExecutorImpl(tickerRepository);
+        return new TickerHistoryService(tickerRepository);
+    }
+
+    @Bean
+    public TradingService tradingService()
+    {
+        return new TradingService(coinService(), tradeSettingService(), tickerHistoryService());
     }
 }

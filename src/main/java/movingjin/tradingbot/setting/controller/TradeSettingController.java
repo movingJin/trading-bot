@@ -31,8 +31,8 @@ public class TradeSettingController {
             ,@RequestParam("user_name") String userName
             ,@RequestParam("coin_name") String coinName)
     {
-        BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coinName).get();
-        AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coinName).get();
+        BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coinName);
+        AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coinName);
         model.addAttribute("user_name", userName);
         model.addAttribute("coin_name", coinName);
         model.addAttribute("bid_settings", bid_settings);
@@ -46,8 +46,8 @@ public class TradeSettingController {
     {
         String userName = form.getUserName();
         String coinName = form.getCoinName();
-        BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coinName).get();
-        AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coinName).get();
+        BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coinName);
+        AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coinName);
         bid_settings.setCandle(BidTradeSetting.Candle.parse(form.getBidCandle()));
         ask_settings.setCandle(AskTradeSetting.Candle.parse(form.getAskCandle()));
 
@@ -62,7 +62,7 @@ public class TradeSettingController {
 
         String password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
         if(bid_settings.getPrice() > 0 && ask_settings.getPrice() > 0) {
-            Coin coin = coinService.getCoinInfo(userName, password, coinName).get();
+            Coin coin = coinService.getCoinInfo(userName, password, coinName);
             coin.setIsRun(Coin.AutoRun.STOP);
         }
         int ret = tradeSettingService.save(bid_settings, ask_settings);

@@ -68,10 +68,19 @@ public class BidTradeSetting {
     }
 
     public enum Reference {
-        MA5,
-        MA20,
-        MA60,
-        MA120,
-        PROFIT
+        MA5(5),
+        MA20(20),
+        MA60(60),
+        MA120(120);
+
+        private int value;
+        Reference(int value)
+        {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }
