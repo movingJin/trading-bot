@@ -11,6 +11,7 @@ public interface TickerJpaInterface extends CrudRepository<Ticker, Long> {
 
     List<Ticker> findByCoinNameAndTimeStampBefore(String userName, LocalDateTime days);
 
+    List<Ticker> findByCoinNameAndTimeStampAfter(String userName, LocalDateTime days);
     //@Modifying
     //@Query("delete from TICKER_HISTORY t where t.idx = ?1")
     void deleteByIdx(Long idx);

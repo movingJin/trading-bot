@@ -5,7 +5,6 @@ import movingjin.tradingbot.home.repository.CoinInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CoinService{
     private CoinInterface coinRepository;
@@ -20,11 +19,16 @@ public class CoinService{
         return coinRepository.findAll(connectKey, secretKey);
     }
 
-    public Optional<Coin> getCoinInfo(String connectKey, String secretKey, String coinName) {
-        return coinRepository.findByCoinName(connectKey, secretKey, coinName);
+    public Coin getCoinInfo(String connectKey, String secretKey, String coinName) {
+        return coinRepository.findByCoinName(connectKey, secretKey, coinName).get();
     }
 
     public Double getBalance(String connectKey, String secretKey) {
         return coinRepository.getBalance(connectKey, secretKey);
+    }
+
+    public Double getCurrentPrice(String coinName)
+    {
+        return coinRepository.getCurrentPriceByCoin(coinName);
     }
 }

@@ -1,4 +1,4 @@
-package movingjin.tradingbot.batch.tickerHistory;
+package movingjin.tradingbot.batch.tickerHistory.service;
 
 import lombok.RequiredArgsConstructor;
 import movingjin.tradingbot.batch.tickerHistory.domain.Ticker;
@@ -13,14 +13,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Service("jobExecutor")
-@Transactional("transactionManager")
+@Service
+@Transactional
 @RequiredArgsConstructor
-public class JobExecutorImpl {
+public class TickerHistoryService {
     @Autowired
     private final TickerJpaInterface tickerRepository;
-
-    static Logger log = Logger.getLogger(JobExecutorImpl.class.getName());
+    static Logger log = Logger.getLogger(TickerHistoryService.class.getName());
 
     public void execute() {
         log.info("transaction exists? ".concat( String.valueOf(TransactionSynchronizationManager.isActualTransactionActive()) )); // true
@@ -33,9 +32,7 @@ public class JobExecutorImpl {
             for(Ticker ticker: tickers)
             {
                 log.info(ticker.getTimeStamp().toString() + "fetch and deleting: " + ticker.getIdx());
-                //tickerRepository.delete(ticker);
-                ticker.setVolume(777.0);
-                tickerRepository.save(ticker);
+                tickerRepository.delete(ticker);
             }
 
             log.info("======= Start ticker history insert step =======");
@@ -43,5 +40,18 @@ public class JobExecutorImpl {
             tickerRepository.save(ticker);
         }
         return;
+    }
+
+    public Double getMovingAverage(String coinName, Long period)
+    {
+        Double ma = 0.0;
+        Double sum = 0.0;
+        List<Ticker> tickers = tickerRepository.findByCoinNameAndTimeStampAfter(coinName, LocalDateTime.now().minusDays(period));
+        for(Ticker ticker: tickers)
+        {
+            sum += ticker.getClose();
+        }
+        ma = sum / period;
+        return ma;
     }
 }

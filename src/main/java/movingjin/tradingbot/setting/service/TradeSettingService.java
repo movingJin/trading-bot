@@ -6,8 +6,6 @@ import movingjin.tradingbot.setting.repository.AskTradeSettingJpaInterface;
 import movingjin.tradingbot.setting.repository.BidTradeSettingJpaInterface;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Transactional
 public class TradeSettingService {
     private final BidTradeSettingJpaInterface bidRepository;
@@ -25,13 +23,13 @@ public class TradeSettingService {
         return 0;
     }
 
-    public Optional<BidTradeSetting> getBidSetting(String userName, String coinName)
+    public BidTradeSetting getBidSetting(String userName, String coinName)
     {
-        return bidRepository.findByUserNameAndCoinName(userName, coinName);
+        return bidRepository.findByUserNameAndCoinName(userName, coinName).get();
     }
 
-    public Optional<AskTradeSetting> getAskSetting(String userName, String coinName)
+    public AskTradeSetting getAskSetting(String userName, String coinName)
     {
-        return askRepository.findByUserNameAndCoinName(userName, coinName);
+        return askRepository.findByUserNameAndCoinName(userName, coinName).get();
     }
 }
