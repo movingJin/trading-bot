@@ -66,15 +66,18 @@ public class TradingService {
                 {
                     Double goalProfit = askTradeSetting.getConditionRatio();
                     List<Order> orders= orderJpaInterface.findByUserNameAndCoinName(userName, coin.getName());
-                    Double ordered_price = orders.stream()
-                            .flatMapToDouble(price -> DoubleStream.of(price.getPrice()))
-                            .average().getAsDouble();
-                    Double profit = (currentPrice / ordered_price) * 100.0 - 100.0;
-
-                    logger.info(coin.getName() + ", goalProfit: " + goalProfit + ", profit: " + profit);
-                    if(profit > goalProfit)
+                    if(orders.size() > 0)
                     {
-                        logger.info(coin.getName() + " sell at " + currentPrice);
+                        Double ordered_price = orders.stream()
+                                .flatMapToDouble(price -> DoubleStream.of(price.getPrice()))
+                                .average().getAsDouble();
+                        Double profit = (currentPrice / ordered_price) * 100.0 - 100.0;
+
+                        logger.info(coin.getName() + ", goalProfit: " + goalProfit + ", profit: " + profit);
+                        if(profit > goalProfit)
+                        {
+                            logger.info(coin.getName() + " sell at " + currentPrice);
+                        }
                     }
                 }
                 Thread.sleep((long) 1000);

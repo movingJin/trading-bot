@@ -31,7 +31,7 @@
                 </td>
                 <td> <input type="number" id="bidConditionRatio" name="bidConditionRatio" min="0" step="any" size=6 placeholder="기준 대비 매수조건" th:value="${setting.conditionRatio}"> </td>
                 <td> <input type="number" id="bidQuantity" name="bidQuantity" size=10 min="-1" step="any" placeholder="매수수량" th:value="${setting.quantity}"> </td>
-                <td> <input type="number" id="bidPrice" name="bidPrice" size=10 min="0" step="any" placeholder="매수수량" th:value="${setting.price}" disabled> </td>
+                <td> <input type="text" id="bidPrice" name="bidPrice" size=10 min="0" step="any" placeholder="매수수량" th:value="${setting.price}" disabled> </td>
             </tr>
             </tbody>
         </table>
@@ -59,7 +59,7 @@
                         </option>
                     </select>
                 </td>
-                <td> <input type="number" id="askConditionRatio" name="askConditionRatio" size=6 min="0" step="any" placeholder="기준 대비 매도조건" th:value="${setting.conditionRatio}"> </td>
+                <td> <input type="number" id="askConditionRatio" name="askConditionRatio" size=6 min="0" step="any" placeholder="기준 대비 매도조건" th:value="${#numbers.formatDecimal(setting.conditionRatio,1,'DEFAULT',2,'DEFAULT')}"> </td>
             </tr>
             </tbody>
         </table>
@@ -95,7 +95,7 @@
     bidQuantity.addEventListener('change', function () {
         let quantity = parseFloat(bidQuantity.value);
         let total = quantity * currentPrice;
-        bidPrice.value = total.toFixed(6);
+        bidPrice.value = total.toFixed(2);
     });
 
     function calTotal()
