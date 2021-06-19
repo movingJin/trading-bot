@@ -21,6 +21,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private MemberService memberService;
 
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         if (authentication == null) {

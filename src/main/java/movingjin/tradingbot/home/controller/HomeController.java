@@ -5,7 +5,7 @@ import movingjin.tradingbot.home.service.CoinService;
 import movingjin.tradingbot.setting.domain.AskTradeSetting;
 import movingjin.tradingbot.setting.domain.BidTradeSetting;
 import movingjin.tradingbot.setting.service.TradeSettingService;
-import movingjin.tradingbot.trading.TradingService;
+import movingjin.tradingbot.trading.service.TradingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +57,9 @@ public class HomeController {
             for (Coin coin : coins) {
                 BidTradeSetting bid_settings = tradeSettingService.getBidSetting(userName, coin.getName());
                 AskTradeSetting ask_settings = tradeSettingService.getAskSetting(userName, coin.getName());
-                Double bidPrice = bid_settings.getPrice();
-                Double askPrice = ask_settings.getPrice();
+                Double bidQuantity = bid_settings.getQuantity();
 
-                if (bidPrice < 0 || askPrice < 0) {
+                if (bidQuantity < 0) {
                     coin.setIsRun(Coin.AutoRun.UNAVAILABLE);
                 }
             }
@@ -81,7 +80,6 @@ public class HomeController {
             userName = ((UserDetails) principal).getUsername();
             password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
 
-
             int idx = Integer.parseInt(_idx);
             String coinName = Coin.Token.values()[idx].name();
             Coin coin = coinService.getCoinInfo(userName, password, coinName);
@@ -90,7 +88,7 @@ public class HomeController {
 
             if(isRun == Coin.AutoRun.RUN)
             {
-                Future<Integer> bidThread = tradingService.onTrading(userName, coin);
+                Future<Integer> bidThread = tradingService.onTrading(userName, password, coin);
                 bidThreads.put(coinName, bidThread);
             }
             else

@@ -4,17 +4,16 @@
 <div class="container">
     <h1 th:text="${coin_name} + ' Trade Setting'" />
     <form action="#" th:action="@{/setting/save}" method="post" id="edit_setting">
-        <input type="hidden" name="userName" th:value="${user_name}">
         <input type="hidden" name="coinName" th:value="${coin_name}">
     <div class="form-group">
         <table>
             <thead>
             <tr>
                 <th></th>
-                <th>캔들</th>
                 <th>기준</th>
                 <th>조건</th>
-                <th>가격</th>
+                <th>매수수량</th>
+                <th>매수총액</th>
                 <th></th>
             </tr>
             </thead>
@@ -22,25 +21,17 @@
             <tr th:with="setting= ${bid_settings}">
                 <td th:text="매수조건"></td>
                 <td>
-                    <select name="bidCandle" form="edit_setting">
-                        <option th:each="candle : ${T(movingjin.tradingbot.setting.domain.BidTradeSetting.Candle).values()}"
-                                th:value="${candle.value}"
-                                th:text="${candle.value}"
-                                th:selected="(${setting.candle} == ${candle})">
-                        </option>
-                    </select>
-                </td>
-                <td>
                     <select name="bidReference" form="edit_setting">
                         <option th:each="ref : ${T(movingjin.tradingbot.setting.domain.BidTradeSetting.Reference).values()}"
                                 th:value="${ref}"
                                 th:text="${ref}"
-                                th:selected="(${setting.reference} == ${ref})">
+                                th:selected="(${setting.reference} == ${ref.name()})">
                         </option>
                     </select>
                 </td>
-                <td> <input type="text" id="bidConditionRatio" name="bidConditionRatio" size=6 placeholder="기준 대비 매수조건" th:value="${setting.conditionRatio}"> </td>
-                <td> <input type="text" id="bidPrice" name="bidPrice" size=10 placeholder="매수금액" th:value="${setting.price}"> </td>
+                <td> <input type="number" id="bidConditionRatio" name="bidConditionRatio" min="0" step="any" size=6 placeholder="기준 대비 매수조건" th:value="${setting.conditionRatio}"> </td>
+                <td> <input type="number" id="bidQuantity" name="bidQuantity" size=10 min="-1" step="any" placeholder="매수수량" th:value="${setting.quantity}"> </td>
+                <td> <input type="number" id="bidPrice" name="bidPrice" size=10 min="0" step="any" placeholder="매수수량" th:value="${setting.price}" disabled> </td>
             </tr>
             </tbody>
         </table>
@@ -51,10 +42,8 @@
             <thead>
             <tr>
                 <th></th>
-                <th>캔들</th>
                 <th>기준</th>
                 <th>조건</th>
-                <th>가격</th>
                 <th></th>
             </tr>
             </thead>
@@ -62,25 +51,15 @@
             <tr th:with="setting= ${ask_settings}">
                 <td th:text="매도조건"></td>
                 <td>
-                    <select name="askCandle" form="edit_setting">
-                        <option th:each="candle : ${T(movingjin.tradingbot.setting.domain.AskTradeSetting.Candle).values()}"
-                                th:value="${candle.value}"
-                                th:text="${candle.value}"
-                                th:selected="(${setting.candle} == ${candle})">
-                        </option>
-                    </select>
-                </td>
-                <td>
                     <select name="askReference" form="edit_setting">
                         <option th:each="ref : ${T(movingjin.tradingbot.setting.domain.AskTradeSetting.Reference).values()}"
                             th:value="${ref}"
                             th:text="${ref}"
-                            th:selected="(${setting.reference} == ${ref})">
+                            th:selected="(${setting.reference} == ${ref.name()})">
                         </option>
                     </select>
                 </td>
-                <td> <input type="text" id="askConditionRatio" name="askConditionRatio" size=6 placeholder="기준 대비 매도조건" th:value="${setting.conditionRatio}"> </td>
-                <td> <input type="text" id="askPrice" name="askPrice" size=10 placeholder="매도금액" th:value="${setting.price}"> </td>
+                <td> <input type="number" id="askConditionRatio" name="askConditionRatio" size=6 min="0" step="any" placeholder="기준 대비 매도조건" th:value="${setting.conditionRatio}"> </td>
             </tr>
             </tbody>
         </table>
@@ -97,15 +76,31 @@
 <script th:inline="javascript">
 
     /*<![CDATA[*/
-    var isSaveOk = /*[[${isSaveOk}]]*/ false;
+    let isSaveOk = /*[[${isSaveOk}]]*/ false;
+    /*]]>*/
     if(isSaveOk === true)
     {
         alert('저장되었습니다.');
     }
-    /*]]>*/
 
     function goBack() {
         window.history.back();
+    }
+
+    /*<![CDATA[*/
+    let currentPrice = /*[[${currentPrice}]]*/ 0.0;
+    /*]]>*/
+    let bidQuantity = document.getElementById("bidQuantity");
+    let bidPrice = document.getElementById("bidPrice");
+    bidQuantity.addEventListener('change', function () {
+        let quantity = parseFloat(bidQuantity.value);
+        let total = quantity * currentPrice;
+        bidPrice.value = total.toFixed(6);
+    });
+
+    function calTotal()
+    {
+
     }
 
 </script>

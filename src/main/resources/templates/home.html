@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<link rel="stylesheet" href="resources/css/common.css">
 <body>
 <header>
     <h1>Crypto token Trading Bot</h1>
@@ -27,13 +27,13 @@
                 <th>설정</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="board">
             <tr th:each="coin: ${coins}">
                 <td th:text="${coin.name}"></td>
-                <td th:text="${coin.marketPrice}"></td>
-                <td th:text="${coin.bidPrice}"></td>
-                <td th:text="${coin.quantity}"></td>
-                <td th:text="${coin.income}"></td>
+                <td th:text="${#numbers.formatDecimal(coin.marketPrice,1,'DEFAULT',2,'DEFAULT')}"></td>
+                <td th:text="${#numbers.formatDecimal(coin.bidPrice,1,'DEFAULT',2,'DEFAULT')}"></td>
+                <td th:text="${#numbers.formatDecimal(coin.quantity,1,'DEFAULT',2,'DEFAULT')}"></td>
+                <td th:text="${#numbers.formatDecimal(coin.income,1,'DEFAULT',2,'DEFAULT')}"></td>
                 <td>
                     <form th:switch="${coin.isRun.getValue()}" action="/run_or_stop" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -44,7 +44,6 @@
                 </td>
                 <td>
                     <form action="/settings/edit?coin_name=${coin.name}" method="get">
-                        <input type="hidden" name="user_name" th:value="${#authentication.name}">
                         <input type="hidden" name="coin_name" th:value="${coin.name}">
                         <input type="submit" value="설정">
                     </form>

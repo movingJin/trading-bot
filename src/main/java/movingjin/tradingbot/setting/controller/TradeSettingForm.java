@@ -8,15 +8,12 @@ import lombok.Setter;
 public class TradeSettingForm {
     private String userName;
     private String coinName;
-    private String bidCandle;
     private String bidReference;
     private Double bidConditionRatio;
-    private Double bidPrice;
+    private Double bidQuantity;
 
 
 
-    private String askCandle;
     private String askReference;
     private Double askConditionRatio;
-    private Double askPrice;
 }
