@@ -51,17 +51,13 @@ public class MemberService implements UserDetailsService {
             bidTradeSetting.setCoinName(token.name());
             askTradeSetting.setCoinName(token.name());
 
-            bidTradeSetting.setCandle(BidTradeSetting.Candle.MINUTE_5);
-            askTradeSetting.setCandle(AskTradeSetting.Candle.MINUTE_5);
-
             bidTradeSetting.setReference(BidTradeSetting.Reference.MA5);
-            askTradeSetting.setReference(AskTradeSetting.Reference.MA5);
+            askTradeSetting.setReference(AskTradeSetting.Reference.PROFIT);
 
             bidTradeSetting.setConditionRatio(0.0);
             askTradeSetting.setConditionRatio(0.0);
 
-            bidTradeSetting.setPrice(-1.0);
-            askTradeSetting.setPrice(-1.0);
+            bidTradeSetting.setQuantity(-1.0);
 
             bidRepository.save(bidTradeSetting);
             askRepository.save(askTradeSetting);

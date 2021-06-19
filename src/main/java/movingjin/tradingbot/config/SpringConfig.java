@@ -9,7 +9,8 @@ import movingjin.tradingbot.home.service.CoinService;
 import movingjin.tradingbot.setting.repository.AskTradeSettingJpaInterface;
 import movingjin.tradingbot.setting.repository.BidTradeSettingJpaInterface;
 import movingjin.tradingbot.setting.service.TradeSettingService;
-import movingjin.tradingbot.trading.TradingService;
+import movingjin.tradingbot.trading.repository.OrderJpaInterface;
+import movingjin.tradingbot.trading.service.TradingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,12 +21,13 @@ public class SpringConfig {
     private final BidTradeSettingJpaInterface bidTradeSettingInterface;
     private final AskTradeSettingJpaInterface askTradeSettingInterface;
     private final TickerJpaInterface tickerRepository;
+    private final OrderJpaInterface orderJpaInterface;
 
     @Bean
     public CoinService coinService()
     {
         //return new CoinService(coinInterface);
-        return new CoinService(coinRepository());
+        return new CoinService(coinRepository(), orderJpaInterface);
     }
     @Bean
     public CoinInterface coinRepository()
@@ -48,6 +50,6 @@ public class SpringConfig {
     @Bean
     public TradingService tradingService()
     {
-        return new TradingService(coinService(), tradeSettingService(), tickerHistoryService());
+        return new TradingService(orderJpaInterface, coinService(), tradeSettingService(), tickerHistoryService());
     }
 }

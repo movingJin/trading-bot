@@ -22,10 +22,7 @@ public class JobScheduler {
 
     @Autowired
     private TickerHistoryService tickerHistoryService;
-    /*
-    @Autowired
-    private JobConfiguration jobConfiguration;
-*/
+
     //@Scheduled(initialDelay = 10000, fixedDelay = 30000)
     @Scheduled(cron="0 05 00 * * ?")
     @Transactional(propagation= Propagation.NOT_SUPPORTED)
