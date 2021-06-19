@@ -1,5 +1,6 @@
 package movingjin.tradingbot.home.controller;
 
+import lombok.RequiredArgsConstructor;
 import movingjin.tradingbot.home.domain.Coin;
 import movingjin.tradingbot.home.service.CoinService;
 import movingjin.tradingbot.setting.domain.AskTradeSetting;
@@ -8,7 +9,6 @@ import movingjin.tradingbot.setting.service.TradeSettingService;
 import movingjin.tradingbot.trading.service.TradingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -22,22 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
+@RequiredArgsConstructor
 @Controller
 public class HomeController {
     Logger logger = LoggerFactory.getLogger(getClass());
     private final CoinService coinService;
     private final TradeSettingService tradeSettingService;
     private final TradingService tradingService;
-    HashMap<String, Future<Integer> > bidThreads = null;
-
-    @Autowired
-    public HomeController (CoinService coinService, TradeSettingService tradeSettingService, TradingService tradingService)
-    {
-        this.coinService = coinService;
-        this.tradeSettingService = tradeSettingService;
-        this.tradingService = tradingService;
-        this.bidThreads = new HashMap<>();
-    }
+    private final HashMap<String, Future<Integer> > bidThreads;
 
     @GetMapping("/")
     public String home(Model model)
