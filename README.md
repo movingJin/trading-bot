@@ -1,6 +1,6 @@
 # Trading-bot
-This project is auto trading system for cryptocurrency.
-
+This project is auto trading system for cryptocurrency.   
+**Investors are responsible for all investments.**
 
 ### How to use
 This system based on Bithumb API.
