@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TradeSettingService {
     private final BidTradeSettingJpaInterface bidRepository;
     private final AskTradeSettingJpaInterface askRepository;
+
     public TradeSettingService(BidTradeSettingJpaInterface bidRepository, AskTradeSettingJpaInterface askRepository)
     {
         this.bidRepository = bidRepository;

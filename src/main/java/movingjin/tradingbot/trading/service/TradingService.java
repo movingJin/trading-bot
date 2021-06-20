@@ -49,17 +49,23 @@ public class TradingService {
 
                 if(currentPrice < biddingCondition)
                 {
-                    //String order_id = coinService.getOrderIdOnBidding(userName, password, "XRP", 1.0);
-                    //logger.info(coin.getName() + " buy at " + currentPrice + ", order_id: " + order_id);
-
-                    Order order = coinService.getOrders(userName, password, "XRP", "C0106000000235432361");
-                    while(order == null)
+                    Double balance = coinService.getBalance(userName, password);
+                    Double quantity = bidTradeSetting.getQuantity();
+                    Double totalPrice = currentPrice * quantity;
+                    if(totalPrice < balance)
                     {
-                        order = coinService.getOrders(userName, password, "XRP", "C0106000000235432361");
-                        logger.info("get order detail is failed. retry after 3 seconds later.");
-                        Thread.sleep(3000);
+                        //String order_id = coinService.tryBidding(userName, password, "XRP", 1.0);
+                        //logger.info(coin.getName() + " buy at " + currentPrice + ", order_id: " + order_id);
+
+                        Order order = coinService.getOrders(userName, password, "XRP", "C0106000000235432361");
+                        while(order == null)
+                        {
+                            order = coinService.getOrders(userName, password, "XRP", "C0106000000235432361");
+                            logger.info("get order detail is failed. retry after 3 seconds later.");
+                            Thread.sleep(3000);
+                        }
+                        orderJpaInterface.save(order);
                     }
-                    orderJpaInterface.save(order);
                 }
 
                 if(askReference == AskTradeSetting.Reference.PROFIT)
