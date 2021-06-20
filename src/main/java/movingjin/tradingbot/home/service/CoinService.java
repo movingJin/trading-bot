@@ -68,7 +68,7 @@ public class CoinService{
         return coinRepository.getCurrentPriceByCoin(coinName);
     }
 
-    public String getOrderIdOnBidding(String userName, String password, String coinName, Double quantity)
+    public String tryBidding(String userName, String password, String coinName, Double quantity)
     {
         return coinRepository.marketBidding(userName, password, coinName, quantity);
     }

@@ -24,7 +24,7 @@ import java.util.List;
 public class MemberService implements UserDetailsService {
     private final BidTradeSettingJpaInterface bidRepository;
     private final AskTradeSettingJpaInterface askRepository;
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
