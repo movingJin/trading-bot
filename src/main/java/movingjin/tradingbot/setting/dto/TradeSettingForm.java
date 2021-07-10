@@ -1,4 +1,4 @@
-package movingjin.tradingbot.setting.controller;
+package movingjin.tradingbot.setting.dto;
 
 import lombok.Getter;
 import lombok.Setter;

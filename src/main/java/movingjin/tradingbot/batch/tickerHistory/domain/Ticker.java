@@ -54,7 +54,9 @@ public class Ticker {
                 Double max_price = Double.parseDouble(dataObject.getString("max_price"));
                 Double units_traded = Double.parseDouble(dataObject.getString("units_traded"));
                 Long date = Long.parseLong(dataObject.getString("date"));
-                Instant instant = Instant.ofEpochMilli(date);
+                long epochSeconds = date / 1_000_000L;
+                long nanoOffset = ( date % 1_000_000L ) * 1_000L ;
+                Instant instant = Instant.ofEpochSecond(epochSeconds, nanoOffset);
                 LocalDateTime timeStamp = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
 
                 this.coinName = coinName;

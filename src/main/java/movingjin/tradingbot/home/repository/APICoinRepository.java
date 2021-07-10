@@ -54,7 +54,7 @@ public class APICoinRepository implements CoinInterface {
         Api_Client api = new Api_Client(connectKey, secretKey);
 
         try {
-            {   //Getting and setting market price
+            {   //Buying token by market price
                 String reqUrl = "/trade/market_buy";
                 HashMap<String, String> rgParams = new HashMap<String, String>();
                 rgParams.put("order_currency", coinName);
@@ -65,6 +65,39 @@ public class APICoinRepository implements CoinInterface {
                 String status = jObject.getString("status");
                 if (status.equals("0000")) {
                     order_id = jObject.getString("order_id");
+                }
+                else
+                {
+                    logger.error("marketBidding method error: " + result);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return order_id;
+    }
+
+    @Override
+    public String marketSell(String connectKey, String secretKey, String coinName, Double quantity) {
+        String order_id = null;
+        Api_Client api = new Api_Client(connectKey, secretKey);
+
+        try {
+            {   //Selling token by market price
+                String reqUrl = "/trade/market_sell";
+                HashMap<String, String> rgParams = new HashMap<String, String>();
+                rgParams.put("order_currency", coinName);
+                rgParams.put("units", "" + quantity);
+                rgParams.put("payment_currency", "KRW");
+                String result = api.callApi(reqUrl, rgParams, METHOD_POST);
+                JSONObject jObject = new JSONObject(result);
+                String status = jObject.getString("status");
+                if (status.equals("0000")) {
+                    order_id = jObject.getString("order_id");
+                }
+                else
+                {
+                    logger.error("marketSell method error: " + result);
                 }
             }
         } catch (Exception e) {
@@ -78,7 +111,7 @@ public class APICoinRepository implements CoinInterface {
         Order order = null;
         Api_Client api = new Api_Client(connectKey, secretKey);
         try {
-            {   //Getting and setting market price
+            {   //Getting order info.
                 String reqUrl = "/info/order_detail";
                 HashMap<String, String> rgParams = new HashMap<String, String>();
                 rgParams.put("order_currency", coinName);
@@ -94,7 +127,9 @@ public class APICoinRepository implements CoinInterface {
                     if(order_status.equals("Completed"))
                     {
                         Long date = Long.parseLong(dataObject.getString("order_date"));
-                        Instant instant = Instant.ofEpochMilli(date);
+                        long epochSeconds = date / 1_000_000L;
+                        long nanoOffset = ( date % 1_000_000L ) * 1_000L ;
+                        Instant instant = Instant.ofEpochSecond(epochSeconds, nanoOffset);
                         LocalDateTime transaction_date = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
                         String order_currency = dataObject.getString("order_currency");
                         JSONArray contractArray = dataObject.getJSONArray("contract");
@@ -107,7 +142,7 @@ public class APICoinRepository implements CoinInterface {
                         }
                         Double order_qty = Double.parseDouble(dataObject.getString("order_qty"));
 
-                        order = new Order(transaction_date, connectKey, order_currency, acc, order_qty);
+                        order = new Order(order_id, transaction_date, connectKey, order_currency, acc, order_qty);
                     }
                     else
                     {
@@ -152,7 +187,7 @@ public class APICoinRepository implements CoinInterface {
         Api_Client api = new Api_Client("dummy", "dummy");
 
         try {
-            {   //Getting and setting market price
+            {
                 String reqUrl = String.format("/public/orderbook/%s_KRW", coinName);
                 HashMap<String, String> rgParams = new HashMap<String, String>();
                 rgParams.put("count", "1");
