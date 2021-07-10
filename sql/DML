@@ -1,19 +1,19 @@
-insert into BID_TRADE_SETTING(user_name, coin_name, reference, condition_ratio, quantity)
+insert into bid_Trade_Setting(user_name, coin_name, reference, condition_ratio, quantity)
  values('be4e24a8e3a22e8dc67f04f40161c609', 'BTC', 'MA5', -10.0, 1.0);
-insert into BID_TRADE_SETTING(user_name, coin_name, reference, condition_ratio, quantity)
+insert into bid_Trade_Setting(user_name, coin_name, reference, condition_ratio, quantity)
  values('be4e24a8e3a22e8dc67f04f40161c609', 'ETH', 'MA5', -10.0, 1.0);
-insert into BID_TRADE_SETTING(user_name, coin_name, reference, condition_ratio, quantity)
+insert into bid_Trade_Setting(user_name, coin_name, reference, condition_ratio, quantity)
  values('be4e24a8e3a22e8dc67f04f40161c609', 'XRP', 'MA5', -10.0, 1.0);
 
-insert into ASK_TRADE_SETTING(user_name, coin_name, reference, condition_ratio)
+insert into ask_trade_setting(user_name, coin_name, reference, condition_ratio)
  values('be4e24a8e3a22e8dc67f04f40161c609', 'BTC', 'PROFIT', 20.0);
-insert into ASK_TRADE_SETTING(user_name, coin_name, reference, condition_ratio)
+insert into ask_trade_setting(user_name, coin_name, reference, condition_ratio)
  values('be4e24a8e3a22e8dc67f04f40161c609', 'ETH', 'PROFIT', 20.0);
-insert into ASK_TRADE_SETTING(user_name, coin_name, reference, condition_ratio)
+insert into ask_trade_setting(user_name, coin_name, reference, condition_ratio)
  values('be4e24a8e3a22e8dc67f04f40161c609', 'XRP', 'PROFIT', 20.0);
 
 
- insert into TICKER_HISTORY(time_stamp, coin_name, open, high, low, close, volume)
+ insert into Ticker_history(time_stamp, coin_name, open, high, low, close, volume)
  values(CURRENT_TIMESTAMP, 'BTC', 78000000, 90000000, 75000000, 85000000, 10);
  insert into TICKER_HISTORY(time_stamp, coin_name, open, high, low, close, volume)
   values('2020-11-03 07:14:22.000111', 'BTC', 4000000, 4500000, 4000000, 46500000, 10);

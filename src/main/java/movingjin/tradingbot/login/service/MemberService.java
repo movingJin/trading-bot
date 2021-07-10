@@ -3,11 +3,11 @@ package movingjin.tradingbot.login.service;
 import lombok.AllArgsConstructor;
 import movingjin.tradingbot.home.domain.Coin;
 import movingjin.tradingbot.login.domain.Role;
-import movingjin.tradingbot.login.repository.MemberRepository;
 import movingjin.tradingbot.setting.domain.AskTradeSetting;
 import movingjin.tradingbot.setting.domain.BidTradeSetting;
 import movingjin.tradingbot.setting.repository.AskTradeSettingJpaInterface;
 import movingjin.tradingbot.setting.repository.BidTradeSettingJpaInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,9 +22,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class MemberService implements UserDetailsService {
+    @Autowired
     private final BidTradeSettingJpaInterface bidRepository;
+    @Autowired
     private final AskTradeSettingJpaInterface askRepository;
-    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {

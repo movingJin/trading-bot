@@ -1,7 +1,6 @@
 package movingjin.tradingbot.config;
 
 import movingjin.tradingbot.login.service.CustomAuthenticationProvider;
-import movingjin.tradingbot.login.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private MemberService memberService;
 
     @Autowired
     private CustomAuthenticationProvider authProvider;

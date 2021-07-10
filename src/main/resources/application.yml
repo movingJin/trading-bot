@@ -6,18 +6,17 @@ spring:
   datasource:
     #hikari:
     platform: h2
-    driver-class-name: org.h2.Driver
-    password: ''
-    url: jdbc:h2:tcp://localhost/~/projects/trading-bot/h2_db
-    jdbc-url: jdbc:h2:tcp://localhost/~/projects/trading-bot/h2_db
-    username: sa
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/TradingBot_DB?serverTimezone=UTC&characterEncoding=UTF-8
+    username: movingjin
+    password: 1234
 
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.H2Dialect
-    database-platform: org.hibernate.dialect.H2Dialect
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
   mvc:
     static-path-pattern: /resources/**
