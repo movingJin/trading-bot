@@ -41,8 +41,10 @@ CREATE TABLE Bidding_orders
    time_stamp timestamp,
    coin_name varchar(255),
    user_name varchar(255),
+   order_id varchar(255),
    price double,
    quantity double,
+   is_hold boolean,
    primary key(id)
 );
 

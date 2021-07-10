@@ -18,7 +18,7 @@ public class CoinService{
         List<Coin> coins = coinRepository.findAll(userName, password);
         for(Coin coin: coins)
         {
-            List<Order> orders= orderJpaInterface.findByUserNameAndCoinName(userName, coin.getName());
+            List<Order> orders= orderJpaInterface.findByUserNameAndCoinNameAndIsHoldTrue(userName, coin.getName());
             Double ordered_price = 0.0;
             Double ordered_counts = 0.0;
             if(orders.size() > 0)
@@ -40,7 +40,7 @@ public class CoinService{
 
     public Coin getCoinInfo(String userName, String password, String coinName) {
         Coin coin = coinRepository.findByCoinName(coinName, password, coinName).get();
-        List<Order> orders= orderJpaInterface.findByUserNameAndCoinName(userName, coin.getName());
+        List<Order> orders= orderJpaInterface.findByUserNameAndCoinNameAndIsHoldTrue(userName, coin.getName());
         Double ordered_price = 0.0;
         Double ordered_counts = 0.0;
         if(orders.size() > 0)
@@ -68,9 +68,14 @@ public class CoinService{
         return coinRepository.getCurrentPriceByCoin(coinName);
     }
 
-    public String tryBidding(String userName, String password, String coinName, Double quantity)
+    public String tryBid(String userName, String password, String coinName, Double quantity)
     {
         return coinRepository.marketBidding(userName, password, coinName, quantity);
+    }
+
+    public String trySell(String userName, String password, String coinName, Double quantity)
+    {
+        return coinRepository.marketSell(userName, password, coinName, quantity);
     }
 
     public Order getOrders(String userName, String password, String coinName, String order_id)

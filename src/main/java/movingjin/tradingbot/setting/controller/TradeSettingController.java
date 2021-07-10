@@ -6,6 +6,7 @@ import movingjin.tradingbot.setting.domain.AskTradeSetting;
 import movingjin.tradingbot.setting.domain.BidTradeSetting;
 import movingjin.tradingbot.setting.dto.AskTradeSettingDTO;
 import movingjin.tradingbot.setting.dto.BidTradeSettingDTO;
+import movingjin.tradingbot.setting.dto.TradeSettingForm;
 import movingjin.tradingbot.setting.service.TradeSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

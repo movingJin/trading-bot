@@ -12,5 +12,6 @@ public interface CoinInterface {
     public List<Coin> findAll(String connectKey, String secretKey);
     public Optional<Coin> findByCoinName(String connectKey, String secretKey, String coinName);
     public String marketBidding(String connectKey, String secretKey, String coinName, Double quantity);
+    public String marketSell(String connectKey, String secretKey, String coinName, Double quantity);
     public Order getOrderDetail(String connectKey, String secretKey, String coinName, String order_id);
 }
