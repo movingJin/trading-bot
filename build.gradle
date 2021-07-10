@@ -23,7 +23,7 @@ dependencies {
 	compile 'org.projectlombok:lombok'
 	compile 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16'
 	annotationProcessor 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
 
 	compile 'commons-codec:commons-codec:1.15'
 	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.5.0'

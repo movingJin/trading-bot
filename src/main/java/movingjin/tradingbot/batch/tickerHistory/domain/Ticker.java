@@ -16,7 +16,7 @@ import static movingjin.tradingbot.bithumApi.HttpRequest.METHOD_GET;
 
 @Getter
 @Setter
-@Entity(name = "TICKER_HISTORY")
+@Entity(name = "ticker_history")
 @EnableBatchProcessing
 public class Ticker {
     @Id
