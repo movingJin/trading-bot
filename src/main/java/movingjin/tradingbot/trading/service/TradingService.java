@@ -35,7 +35,7 @@ public class TradingService {
         BidTradeSetting bidTradeSetting = tradeSettingService.getBidSetting(userName, coin.getName());
         AskTradeSetting askTradeSetting = tradeSettingService.getAskSetting(userName, coin.getName());
         try {
-            //while (true) {
+            while (true) {
                 if(Thread.currentThread().isInterrupted())
                 {
                     logger.info(String.format("%s stop %s's auto trading.", userName, coin.getName()));
@@ -100,7 +100,7 @@ public class TradingService {
                     }
                 }
                 Thread.sleep((long) 1000);
-            //}
+            }
         }
         catch (InterruptedException e) {
             logger.error(e.toString());
