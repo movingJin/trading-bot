@@ -12,6 +12,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.DoubleStream;
 
 @Service
 @Transactional
@@ -45,13 +46,14 @@ public class TickerHistoryService {
     public Double getMovingAverage(String coinName, Long period)
     {
         Double ma = 0.0;
-        Double sum = 0.0;
         List<Ticker> tickers = tickerRepository.findByCoinNameAndTimeStampAfter(coinName, LocalDateTime.now().minusDays(period));
-        for(Ticker ticker: tickers)
+
+        if(tickers.size() > 0)
         {
-            sum += ticker.getClose();
+            ma = tickers.stream()
+                    .flatMapToDouble(price -> DoubleStream.of(price.getClose()))
+                    .average().getAsDouble();
         }
-        ma = sum / period;
         return ma;
     }
 }
