@@ -31,7 +31,6 @@ public class TradingService {
 
     @Async
     public Future<Integer> onTrading(String userName, String password, Coin coin) {
-        int u = 0;
         BidTradeSetting bidTradeSetting = tradeSettingService.getBidSetting(userName, coin.getName());
         AskTradeSetting askTradeSetting = tradeSettingService.getAskSetting(userName, coin.getName());
         try {

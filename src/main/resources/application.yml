@@ -1,11 +1,8 @@
 spring:
   application:
     name: trading-bot
-  batch:
-    initialize-schema: always
   datasource:
-    #hikari:
-    platform: h2
+    platform: mysql
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/TradingBot_DB?serverTimezone=UTC&characterEncoding=UTF-8
     username: movingjin
