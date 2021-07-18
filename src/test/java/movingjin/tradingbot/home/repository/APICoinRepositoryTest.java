@@ -13,13 +13,13 @@ import java.util.*;
 
 import static movingjin.tradingbot.bithumApi.HttpRequest.METHOD_GET;
 
-public class APICoinRepository {
+public class APICoinRepositoryTest {
     private static int order_count = 0;
     private static final Map<String, Coin> store = new LinkedHashMap<>();
-    private Double balance = 1000000.0;
+    private Double balance = 50000000.0;
     Logger logger = LoggerFactory.getLogger(getClass());
 
-    public APICoinRepository()
+    public APICoinRepositoryTest()
     {
         for(Coin.Token token: Coin.Token.values()) {
             Coin coin = new Coin(token.name());
@@ -63,7 +63,7 @@ public class APICoinRepository {
         return order;
     }
 
-    public Double getBalance(String connectKey, String secretKey)
+    public Double getBalance()
     {
         return this.balance;
     }
