@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<th:block layout:fragment="content">
 <body>
 <div class="container">
     <h1 th:text="${coin_name} + ' Trade Setting'" />
@@ -29,9 +32,22 @@
                         </option>
                     </select>
                 </td>
-                <td> <input type="number" id="bidConditionRatio" name="bidConditionRatio" min="0" step="any" size=6 placeholder="기준 대비 매수조건" th:value="${#numbers.formatDecimal(setting.conditionRatio,1,'DEFAULT',2,'DEFAULT')}"> </td>
-                <td> <input type="number" id="bidQuantity" name="bidQuantity" size=10 min="-1" step="any" placeholder="매수수량" th:value="${#numbers.formatDecimal(setting.quantity,1,'DEFAULT',2,'DEFAULT')}"> </td>
-                <td> <input type="text" id="bidPrice" name="bidPrice" size=10 min="0" step="any" placeholder="매수수량" th:value="${#numbers.formatDecimal(setting.price,1,'DEFAULT',2,'DEFAULT')}" disabled> </td>
+                <td>
+                    <div class="number-ratio">
+                        <input type="number" id="bidConditionRatio" name="bidConditionRatio" min="0" step="any" size=10 placeholder="기준 대비 매수조건"
+                               th:value="${#numbers.formatDecimal(setting.conditionRatio,1,'DEFAULT',2,'DEFAULT')}">
+                    </div>
+                </td>
+                <td>
+                    <input type="number" id="bidQuantity" name="bidQuantity" size=10 min="-1" step="any" placeholder="매수수량"
+                           th:value="${#numbers.formatDecimal(setting.quantity,1,'DEFAULT',2,'DEFAULT')}">
+                </td>
+                <td>
+                    <div class="number-currency">
+                        <input type="text" id="bidPrice" name="bidPrice" size=10 min="0" step="any" placeholder="매수금액"
+                               th:value="${#numbers.formatDecimal(setting.price,1,'DEFAULT',2,'DEFAULT')}" disabled>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -59,7 +75,12 @@
                         </option>
                     </select>
                 </td>
-                <td> <input type="number" id="askConditionRatio" name="askConditionRatio" size=6 min="0" step="any" placeholder="기준 대비 매도조건" th:value="${#numbers.formatDecimal(setting.conditionRatio,1,'DEFAULT',2,'DEFAULT')}"> </td>
+                <td>
+                    <div class="number-ratio">
+                        <input type="number" id="askConditionRatio" name="askConditionRatio" size=10 min="0" step="any" placeholder="기준 대비 매도조건"
+                               th:value="${#numbers.formatDecimal(setting.conditionRatio,1,'DEFAULT',2,'DEFAULT')}">
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -72,36 +93,39 @@
     </form>
 </div>
 </body>
+</th:block>
 
-<script th:inline="javascript">
 
-    /*<![CDATA[*/
-    let isSaveOk = /*[[${isSaveOk}]]*/ false;
-    /*]]>*/
-    if(isSaveOk === true)
-    {
-        alert('저장되었습니다.');
-    }
+<th:block layout:fragment="f-script">
+    <script th:inline="javascript">
 
-    function goBack() {
-        window.location.replace("/");
-    }
+        /*<![CDATA[*/
+        let isSaveOk = /*[[${isSaveOk}]]*/ false;
+        /*]]>*/
+        if(isSaveOk === true)
+        {
+            alert('저장되었습니다.');
+        }
 
-    /*<![CDATA[*/
-    let currentPrice = /*[[${currentPrice}]]*/ 0.0;
-    /*]]>*/
-    let bidQuantity = document.getElementById("bidQuantity");
-    let bidPrice = document.getElementById("bidPrice");
-    bidQuantity.addEventListener('change', function () {
-        let quantity = parseFloat(bidQuantity.value);
-        let total = quantity * currentPrice;
-        bidPrice.value = total.toFixed(2);
-    });
+        function goBack() {
+            window.location.replace("/");
+        }
 
-    function calTotal()
-    {
+        /*<![CDATA[*/
+        let currentPrice = /*[[${currentPrice}]]*/ 0.0;
+        /*]]>*/
+        let bidQuantity = document.getElementById("bidQuantity");
+        let bidPrice = document.getElementById("bidPrice");
+        bidQuantity.addEventListener('change', function () {
+            let quantity = parseFloat(bidQuantity.value);
+            let total = quantity * currentPrice;
+            bidPrice.value = total.toFixed(2);
+        });
 
-    }
+        function calTotal()
+        {
 
-</script>
+        }
+    </script>
+</th:block>
 </html>

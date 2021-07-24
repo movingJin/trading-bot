@@ -2,3 +2,12 @@
 {
     text-align: right;
 }
+
+.number-currency::after{
+    content: "\20A9";
+    margin-left: -2px;
+}
+.number-ratio::after{
+    content: "%";
+    margin-left: -2px;
+}
